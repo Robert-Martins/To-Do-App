@@ -1,11 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ToDo } from './pages/ToDo';
 
-function App() {
-  return (
-    
-  );
+const App = () => {
+  return <ToDo></ToDo>;
 }
 
 export default App;
