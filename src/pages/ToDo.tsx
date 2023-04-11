@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserData } from "../components/molecules/labeled-input/UserData";
 import { Tasks } from "../components/organisms/tasks/Tasks";
 import { User } from "../models/user.model";
@@ -20,12 +20,12 @@ export const ToDo = () => {
 
     const [createdAt, setCreatedAt] = useState<Date>(new Date());
 
-    const setUserData = ():void => {
+    const setUserData = (): void => {
         setUser(new User(username, totalTasks, tasksConcluded, createdAt));
     }
 
-    const retrieveUser = ():void => {
-        if(localStorage.getItem('name')){
+    const retrieveUser = (): void => {
+        if(localStorage.getItem('name') != null || localStorage.getItem('name') != ''){
             setUsername(`${localStorage.getItem('name')}`);
             setTotalTasks(Number(localStorage.getItem('totalTasks')));
             setTasksConcluded(Number(localStorage.getItem('tasksConcluded')));
@@ -39,11 +39,13 @@ export const ToDo = () => {
         for(const [key, value] of Object.entries(user))
             localStorage.setItem(key, value);
     }
+
+    useEffect(() => retrieveUser(), []);
     
     return (
         <div className="todo">
-            <UserData></UserData>
-            <Tasks></Tasks>
+            <UserData username={username} setUsername={setUsername} totalTasks={totalTasks} tasksConcluded={tasksConcluded} createdAt={createdAt} saveUser={saveUser}></UserData>
+            <Tasks setTotalTasks={setTotalTasks} setTasksConcluded={setTasksConcluded} saveUser={saveUser}></Tasks>
         </div>
     );
 }
