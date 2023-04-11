@@ -1,5 +1,13 @@
-export const FlatButton = () => {
+type Props = {
+    label: string,
+    onClick?: () => void
+}
+
+export const FlatButton = (props: Props) => {
+
+    const {label, onClick} = props;
+
     return (
-        <button></button>
+        <button onClick={onClick}>{label}</button>
     );
 }

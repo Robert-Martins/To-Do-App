@@ -1,12 +1,19 @@
-import { SyntheticEvent, useState } from 'react';
+import { Dispatch, SetStateAction, SyntheticEvent, useState } from 'react';
 import styles from './NameInput.module.css';
 
-export const NameInput = () => {
+type Props = {
+    username: string,
+    setUsername: Dispatch<SetStateAction<string>>,
+    saveUser: () => void
+}
 
-    const [username, setUsername] = useState('Your name');
+export const NameInput = (props: Props) => {
+
+    const {username, setUsername, saveUser} = props;
 
     const handleChange = (event: any): void => {
         setUsername(event.target.value);
+        saveUser();
     }
 
     return (
