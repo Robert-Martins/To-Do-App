@@ -37,6 +37,14 @@ h6 {
     letter-spacing: 1.6px;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    opacity: 0.7;
+}
+
 .todo {
     max-width: 1080px;
     margin: 0 auto;
@@ -60,4 +68,16 @@ h6 {
 
 .f-space-between {
     justify-content: space-between;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.gap-36 {
+    gap: 36px;
+}
+
+.grey-700 {
+    color: rgb(125, 125, 125);
 }

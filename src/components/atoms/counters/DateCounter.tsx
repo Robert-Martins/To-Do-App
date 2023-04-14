@@ -7,12 +7,12 @@ export const DateCounter = (props: Props) => {
     const {date} = props;
 
     return (
-        <div>
+        <div className="center-text">
             <h6>
                 User since
             </h6>
             <p>
-                {`${date}`}
+                {`${date.toDateString()}`}
             </p>
         </div>
     )

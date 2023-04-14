@@ -1,10 +1,11 @@
 .nameInput {
-    width: 360px;
+    width: auto;
     padding: 12px;
     margin-right: 12px;
     background-color: inherit;
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
     font-size: 24px;
     font-weight: 500;
     letter-spacing: 1px;
