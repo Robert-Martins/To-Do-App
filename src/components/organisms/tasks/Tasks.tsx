@@ -4,20 +4,22 @@ import { FlatButton } from "../../atoms/buttons/FlatButton";
 import { TasksList } from "../../molecules/lists/TasksList";
 
 type Props = {
+    totalTasks: number,
     setTotalTasks: Dispatch<SetStateAction<number>>,
+    tasksConcluded: number,
     setTasksConcluded: Dispatch<SetStateAction<number>>,
     saveUser: () => void
 }
 
 export const Tasks = (props: Props) => {
 
-    const {setTotalTasks, setTasksConcluded, saveUser} = props;
+    const {totalTasks, setTotalTasks, tasksConcluded, setTasksConcluded, saveUser} = props;
 
     const [tasks, setTasks] = useState<Task[]>([]);
 
     const convertStringToTask = (string: string): Task => {
         const taskValues: Array<string> = string.split('§');
-        return new Task(Number(taskValues[0]), taskValues[1], taskValues[2], Boolean(taskValues[3]), new Date(taskValues[4]), new Date(taskValues[5]));
+        return new Task(Number(taskValues[0]), taskValues[1], taskValues[2], Boolean(taskValues[3]), new Date(taskValues[4]), new Date(taskValues[5]), new Date(taskValues[6]));
     }
 
     const storeTask = (task: Task): void => {
@@ -38,6 +40,7 @@ export const Tasks = (props: Props) => {
     const updateTask = (task: Task): void => {
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
         let index: number = task.id--;
+        taskStatusChanged(task);
         clone[index] = task;
         setTasks(clone);
         storeTask(task);
@@ -62,6 +65,13 @@ export const Tasks = (props: Props) => {
             task = convertStringToTask(storageTask);
             createTask(task);
         }
+    }
+
+    const taskStatusChanged = (task: Task) => {
+        const index: number = task.id--;
+        const storedTask: Task = tasks[index];
+        if(storedTask.done != task.done)
+            task.done == true ? setTasksConcluded(tasksConcluded + 1) : setTotalTasks(totalTasks + 1);
     }
 
     const retrieveTasks = (): void => {

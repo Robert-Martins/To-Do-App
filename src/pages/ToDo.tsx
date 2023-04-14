@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserData } from "../components/molecules/labeled-input/UserData";
+import { UserData } from "../components/molecules/forms/UserData";
 import { Tasks } from "../components/organisms/tasks/Tasks";
 import { User } from "../models/user.model";
 
@@ -45,7 +45,7 @@ export const ToDo = () => {
     return (
         <div className="todo">
             <UserData username={username} setUsername={setUsername} totalTasks={totalTasks} tasksConcluded={tasksConcluded} createdAt={createdAt} saveUser={saveUser}></UserData>
-            <Tasks setTotalTasks={setTotalTasks} setTasksConcluded={setTasksConcluded} saveUser={saveUser}></Tasks>
+            <Tasks totalTasks={totalTasks} setTotalTasks={setTotalTasks} tasksConcluded={tasksConcluded} setTasksConcluded={setTasksConcluded} saveUser={saveUser}></Tasks>
         </div>
     );
 }
