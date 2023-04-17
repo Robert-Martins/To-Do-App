@@ -26,6 +26,19 @@ export const TaskForm = (props: Props) => {
 
     const [toBeDone, setToBeDone] = useState<Date>(task.toBeDone);
 
+    const savedTask = () => {
+        return new Task(
+            id, 
+            title, 
+            text, 
+            done, 
+            toBeDone, 
+            task.id == 0 ? new Date() : task.doneAt, 
+            task.id == 0 ? new Date() : task.updatedAt, 
+            task.id == 0 ? new Date() : task.createdAt
+        );
+    }
+
     return (
         <>
             {
@@ -46,7 +59,7 @@ export const TaskForm = (props: Props) => {
                                     (!done && id == 0) &&
                                         <DateSelect label="Date To Be Done" date={toBeDone.toString()} setDate={setToBeDone} disabled={done && id != 0}></DateSelect>
                                 }
-                                <FlatButton label={id != 0 ? `SAVE` : 'ADD'} onClick={()=> onClickSave(task)}></FlatButton>
+                                <FlatButton label={id != 0 ? `SAVE` : 'ADD'} onClick={()=> onClickSave(savedTask())}></FlatButton>
                             </form>
                         </div>
                     </div>
