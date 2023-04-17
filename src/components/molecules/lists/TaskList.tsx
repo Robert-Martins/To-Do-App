@@ -17,7 +17,7 @@ export const TaskList = (props: Props) => {
 
     const [sortOrder, setSortOrder] = useState<SortOrder>('ASC');
 
-    const taskList = tasks.map(task => <TaskListOption task={task} color={color}></TaskListOption>);
+    const taskList = tasks.map(task => <TaskListOption key={task.id} task={task} color={color}></TaskListOption>);
     
     return (
         <div>

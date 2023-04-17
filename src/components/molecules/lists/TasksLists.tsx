@@ -16,10 +16,6 @@ export const TasksLists = (props: Props) => {
 
     const doneTasks = tasks?.filter(task => task.done);
 
-    useEffect(()=>{
-        console.log(tasks)
-    }, []);
-
     return (
         <div className="grid grid-3 width-100">
             <TaskList label="All" color="black" tasks={tasks}></TaskList>
