@@ -94,6 +94,10 @@ textarea {
     display: grid;
 }
 
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .big-item {
     grid-column: 1/-1;
 }

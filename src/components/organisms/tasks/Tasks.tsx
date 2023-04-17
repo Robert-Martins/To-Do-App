@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Task } from "../../../models/task.model";
 import { FlatButton } from "../../atoms/buttons/FlatButton";
 import { TaskForm } from "../../molecules/forms/TaskForm";
-import { TasksList } from "../../molecules/lists/TasksList";
+import { TasksLists } from "../../molecules/lists/TasksLists";
 
 type Props = {
     totalTasks: number,
@@ -20,24 +20,17 @@ export const Tasks = (props: Props) => {
 
     const [addTask, setAddTask] = useState<boolean>(false);
 
-    const onAddTask = () => {
-        setAddTask(true);
-    }
-
-    const convertStringToTask = (string: string): Task => {
-        const taskValues: Array<string> = string.split('§');
-        return new Task(Number(taskValues[0]), taskValues[1], taskValues[2], Boolean(taskValues[3]), new Date(taskValues[4]), new Date(taskValues[5]), new Date(taskValues[6]));
+    const createNewTask = (): Task => {
+        return new Task(0, '', '', false, new Date(), new Date(), new Date(), new Date());
     }
 
     const storeTask = (task: Task): void => {
-        let taskToStorage: string = '';
-        Object.values(task).forEach(value => taskToStorage += `${value}§`);
-        localStorage.setItem(`task-${task.id}`, taskToStorage);
+        localStorage.setItem(`task-${task.id}`, JSON.stringify(task));
     }
 
     const createTask = (task: Task): void => {
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
-        task.id = clone.length++;
+        task.id = clone.length + 1;
         clone.push(task);
         setTasks(clone);
         setAddTask(false);
@@ -47,7 +40,7 @@ export const Tasks = (props: Props) => {
 
     const updateTask = (task: Task): void => {
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
-        let index: number = task.id--;
+        let index: number = task.id - 1;
         taskStatusChanged(task);
         clone[index] = task;
         setTasks(clone);
@@ -69,11 +62,8 @@ export const Tasks = (props: Props) => {
 
     const retrieveTask = (id: number): void => {
         let storageTask: string | null = localStorage.getItem(`task-${id}`);
-        let task: Task;
-        if(storageTask){
-            task = convertStringToTask(storageTask);
-            createTask(task);
-        }
+        if(storageTask)
+            createTask(JSON.parse(storageTask));
     }
 
     const taskStatusChanged = (task: Task) => {
@@ -84,7 +74,7 @@ export const Tasks = (props: Props) => {
     }
 
     const retrieveTasks = (): void => {
-        let id: number = tasks.length++;
+        let id: number = 1;
         let storageTask: string | null = localStorage.getItem(`task-${id}`);
         while(storageTask) {
             retrieveTask(id);
@@ -93,13 +83,15 @@ export const Tasks = (props: Props) => {
         }
     }
 
-    useEffect(() => retrieveTasks(), []);
+    useEffect(() => {
+        retrieveTasks();
+    }, []);
 
     return (
-        <div className="flex f-center gap-36 p-top-20">
-            <FlatButton label={"ADICIONAR"} onClick={onAddTask}></FlatButton>
-            <TaskForm task={new Task(0, '', '', false, new Date(), new Date(), new Date())} isOpen={addTask} onClickSave={createTask}></TaskForm>
-            <TasksList tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}></TasksList>
+        <div className="flex flex-column f-center gap-36 p-top-20">
+            <FlatButton label={"ADICIONAR"} onClick={() => setAddTask(true)}></FlatButton>
+            <TaskForm task={createNewTask()} isOpen={addTask} onClickSave={createTask}></TaskForm>
+            <TasksLists tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}></TasksLists>
         </div>
     );
 }
