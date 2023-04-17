@@ -1,0 +1,38 @@
+.todo {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 0;
+    height: 80%;
+    background-color: rgb(250, 250, 250);
+}
+
+.divider {
+    width: 100%;
+    margin: 24px 0;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 16px;
+}
+
+.modal {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal > div {
+    width: 400px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1;
+    text-align: center;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
