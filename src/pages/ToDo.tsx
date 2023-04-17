@@ -25,7 +25,7 @@ export const ToDo = () => {
     }
 
     const retrieveUser = (): void => {
-        if(localStorage.getItem('name') != null || localStorage.getItem('name') != ''){
+        if(localStorage.getItem('name') != null || localStorage.getItem('name') !== ''){
             setUsername(`${localStorage.getItem('name') ? localStorage.getItem('name') : 'Your name'}`);
             setTotalTasks(Number(localStorage.getItem('totalTasks')));
             setTasksConcluded(Number(localStorage.getItem('tasksConcluded')));

@@ -32,6 +32,7 @@ export const Tasks = (props: Props) => {
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
         task.id = clone.length + 1;
         clone.push(task);
+        clone.sort((a, b) => a.id - b.id);
         setTasks(clone);
         setAddTask(false);
         setTotalTasks(clone.length);
@@ -67,10 +68,9 @@ export const Tasks = (props: Props) => {
     }
 
     const taskStatusChanged = (task: Task) => {
-        const index: number = task.id--;
-        const storedTask: Task = tasks[index];
-        if(storedTask.done != task.done)
-            task.done == true ? setTasksConcluded(tasksConcluded + 1) : setTotalTasks(totalTasks + 1);
+        const storedTask: Task = tasks.filter(filter => filter.id == task.id)[0];
+        if(storedTask.done !== task.done)
+            task.done === true ? setTasksConcluded(tasksConcluded + 1) : setTotalTasks(totalTasks + 1);
     }
 
     const retrieveTasks = (): void => {

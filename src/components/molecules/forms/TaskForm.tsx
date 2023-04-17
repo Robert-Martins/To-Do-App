@@ -18,11 +18,11 @@ export const TaskForm = (props: Props) => {
 
     const id = task.id;
 
-    const [title, setTitle] = useState<string>(task.title != '' ? task.title : '');
+    const [title, setTitle] = useState<string>(task.title !== '' ? task.title : '');
 
-    const [text, setText] = useState<string>(task.text != '' ? task.text : '');
+    const [text, setText] = useState<string>(task.text !== '' ? task.text : '');
 
-    const [done, setDone] = useState<boolean>(task.done == false ? false : true);
+    const [done, setDone] = useState<boolean>(task.done === false ? false : true);
 
     const [toBeDone, setToBeDone] = useState<Date>(task.toBeDone);
 
@@ -33,9 +33,9 @@ export const TaskForm = (props: Props) => {
             text, 
             done, 
             toBeDone, 
-            task.id == 0 ? new Date() : task.doneAt, 
-            task.id == 0 ? new Date() : task.updatedAt, 
-            task.id == 0 ? new Date() : task.createdAt
+            task.id === 0 ? new Date() : task.doneAt, 
+            task.id === 0 ? new Date() : task.updatedAt, 
+            task.id === 0 ? new Date() : task.createdAt
         );
     }
 
@@ -47,19 +47,19 @@ export const TaskForm = (props: Props) => {
                         <div>
                             <h3 className="">
                                 {
-                                    id != 0 ? `Task ${id}` : 'New Task'
+                                    id !== 0 ? `Task ${id}` : 'New Task'
                                 }
                             </h3>
                             <span className="divider"></span>
                             <form className="flex flex-column gap-24">
-                                <TextInput label="Title" value={title} onChangeValue={setTitle} disabled={done && id != 0}></TextInput>
-                                <TextArea label="Task" value={text} onChangeValue={setText} disabled={done && id != 0}></TextArea>
+                                <TextInput label="Title" value={title} onChangeValue={setTitle} disabled={done && id !== 0}></TextInput>
+                                <TextArea label="Task" value={text} onChangeValue={setText} disabled={done && id !== 0}></TextArea>
                                 <RadioButton labels={['To Be Done', 'Already Done']} value={done} onChangeValue={setDone}></RadioButton>
                                 {
-                                    (!done && id == 0) &&
-                                        <DateSelect label="Date To Be Done" date={toBeDone.toString()} setDate={setToBeDone} disabled={done && id != 0}></DateSelect>
+                                    (!done && id === 0) &&
+                                        <DateSelect label="Date To Be Done" date={toBeDone.toString()} setDate={setToBeDone} disabled={done && id !== 0}></DateSelect>
                                 }
-                                <FlatButton label={id != 0 ? `SAVE` : 'ADD'} onClick={()=> onClickSave(savedTask())}></FlatButton>
+                                <FlatButton label={id !== 0 ? `SAVE` : 'ADD'} onClick={()=> onClickSave(savedTask())}></FlatButton>
                             </form>
                         </div>
                     </div>
