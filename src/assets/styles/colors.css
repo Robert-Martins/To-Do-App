@@ -1,7 +1,45 @@
+* {
+    --grey-500: #989997;
+    --green-500: #6ce368;
+    --red-500: #f54c4c;
+}
+
 div.white {
     background-color: white;
 }
 
-.grey-700 {
+div.grey {
+    background-color: var(--grey-500);
+}
+
+div.green {
+    background-color: var(--green-500);
+}
+
+div.red {
+    background-color: var(--red-500);
+}
+
+h5.white {
+    color: white;
+}
+
+h5.grey-700 {
     color: rgb(125, 125, 125);
+}
+
+h5.grey {
+    color: var(--grey-500);
+}
+
+h5.green {
+    color: var(--green-500);
+}
+
+h5.red {
+    color: var(--red-500);
+}
+
+.shadow {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 }

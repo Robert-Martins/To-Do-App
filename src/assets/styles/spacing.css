@@ -2,6 +2,14 @@
     width: 100%;
 }
 
+.min-width-82 {
+    min-width: 82px;
+}
+
+.gap-8 {
+    gap: 8px;
+}
+
 .gap-12 {
     gap: 12px;
 }
@@ -14,6 +22,18 @@
     gap: 36px;
 }
 
+.p-8 {
+    padding: 8px;
+}
+
+.p-12-24 {
+    padding: 12px 24px;
+}
+
 .p-top-20 {
     padding-top: 20px;
+}
+
+.m-bottom-24 {
+    margin-bottom: 24px;
 }
