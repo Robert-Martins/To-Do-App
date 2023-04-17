@@ -12,7 +12,7 @@ export const ToDo = () => {
         createdAt: new Date()
     });
 
-    const [username, setUsername] = useState<string>('Your name');
+    const [username, setUsername] = useState<string>('');
 
     const [totalTasks, setTotalTasks] = useState<number>(0);
 
@@ -26,10 +26,10 @@ export const ToDo = () => {
 
     const retrieveUser = (): void => {
         if(localStorage.getItem('name') != null || localStorage.getItem('name') != ''){
-            setUsername(`${localStorage.getItem('name')}`);
+            setUsername(`${localStorage.getItem('name') ? localStorage.getItem('name') : 'Your name'}`);
             setTotalTasks(Number(localStorage.getItem('totalTasks')));
             setTasksConcluded(Number(localStorage.getItem('tasksConcluded')));
-            setCreatedAt(new Date(`${localStorage.getItem('createdAt')}`));
+            setCreatedAt(new Date(`${localStorage.getItem('createdAt') ? localStorage.getItem('createdAt') : new Date()}`));
             setUserData();
         }
     }
