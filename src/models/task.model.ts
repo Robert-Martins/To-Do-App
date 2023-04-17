@@ -4,6 +4,7 @@ export class Task {
     text: string;
     done: boolean;
     toBeDone: Date;
+    updatedAt: Date;
     createdAt: Date;
 
     constructor(
@@ -12,13 +13,15 @@ export class Task {
         text: string,
         done: boolean,
         toBeDone: Date,
-        createdAt: Date,
+        updatedAt: Date,
+        createdAt: Date
     ){
         this.id = id;
         this.title = title;
         this.text = text;
         this.done = done;
         this.toBeDone = toBeDone;
+        this.updatedAt = updatedAt;
         this.createdAt = createdAt;
     }
 }

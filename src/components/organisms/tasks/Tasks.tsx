@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Task } from "../../../models/task.model";
 import { FlatButton } from "../../atoms/buttons/FlatButton";
+import { TaskForm } from "../../molecules/forms/TaskForm";
 import { TasksList } from "../../molecules/lists/TasksList";
 
 type Props = {
@@ -16,6 +17,12 @@ export const Tasks = (props: Props) => {
     const {totalTasks, setTotalTasks, tasksConcluded, setTasksConcluded, saveUser} = props;
 
     const [tasks, setTasks] = useState<Task[]>([]);
+
+    const [addTask, setAddTask] = useState<boolean>(false);
+
+    const onAddTask = () => {
+        setAddTask(true);
+    }
 
     const convertStringToTask = (string: string): Task => {
         const taskValues: Array<string> = string.split('§');
@@ -33,6 +40,7 @@ export const Tasks = (props: Props) => {
         task.id = clone.length++;
         clone.push(task);
         setTasks(clone);
+        setAddTask(false);
         setTotalTasks(clone.length);
         storeTask(task);
     }
@@ -43,6 +51,7 @@ export const Tasks = (props: Props) => {
         taskStatusChanged(task);
         clone[index] = task;
         setTasks(clone);
+        setAddTask(false);
         storeTask(task);
     }
 
@@ -87,8 +96,9 @@ export const Tasks = (props: Props) => {
     useEffect(() => retrieveTasks(), []);
 
     return (
-        <div>
-            <FlatButton label={"ADICIONAR"}></FlatButton>
+        <div className="flex f-center gap-36 p-top-20">
+            <FlatButton label={"ADICIONAR"} onClick={onAddTask}></FlatButton>
+            <TaskForm task={new Task(0, '', '', false, new Date(), new Date(), new Date())} isOpen={addTask} onClickSave={createTask}></TaskForm>
             <TasksList tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}></TasksList>
         </div>
     );
