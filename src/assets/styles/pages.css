@@ -1,3 +1,21 @@
+::-webkit-scrollbar {
+    width: 4px;
+}
+  
+::-webkit-scrollbar-track {
+    background: var(--grey-100);
+    border-radius: 100px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: var(--grey-100);
+    border-radius: 100px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: var(--grey-500);
+}
+
 .todo {
     max-width: 1080px;
     margin: 0 auto;
@@ -35,4 +53,22 @@
     background-color: white;
     border-radius: 4px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.counter:hover {
+    background-color: var(--grey-100);
+    padding: 10px 18px;
+    transition: 0.2s;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-y-scroll {
+    overflow-y: auto;
 }

@@ -21,7 +21,7 @@ export const TaskListOption = (props: Props) => {
 
     return (
         <>
-            <div onClick={() => setIsOpen(true)} className="width-100 shadow p-8">
+            <div onClick={() => setIsOpen(true)} className="width-100 shadow p-8 clickable">
                 <div className="flex gap-12 m-bottom-24">
                     <h5>
                         {task.id}

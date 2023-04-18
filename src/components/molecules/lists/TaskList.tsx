@@ -22,7 +22,7 @@ export const TaskList = (props: Props) => {
     const taskList = tasks.map(task => <TaskListOption key={task.id} task={task} color={color} updateTask={updateTask}></TaskListOption>);
     
     return (
-        <div>
+        <div className="height-100 overflow-y-scroll">
             <div className={`${color} p-12-24 border-top-4`}>
                 <h5 className="white">
                     {label}

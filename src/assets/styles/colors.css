@@ -1,4 +1,5 @@
 * {
+    --grey-100: #e0e0e0;
     --grey-500: #989997;
     --green-500: #6ce368;
     --red-500: #f54c4c;
@@ -42,4 +43,9 @@ h5.red {
 
 .shadow {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.shadow:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    transition: 0.2s;
 }

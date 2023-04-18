@@ -17,7 +17,7 @@ export const TasksLists = (props: Props) => {
     const doneTasks = tasks?.filter(task => task.done);
 
     return (
-        <div className="grid grid-3 gap-12 width-100">
+        <div className="grid grid-3 gap-12 width-100 height-100 overflow-hidden">
             <TaskList label="All" color="grey" tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}></TaskList>
             <TaskList label="To Be Done" color="green" tasks={toBeDoneTasks} updateTask={updateTask} deleteTask={deleteTask}></TaskList>
             <TaskList label="Done" color="red" tasks={doneTasks} updateTask={updateTask} deleteTask={deleteTask}></TaskList>
