@@ -5,12 +5,7 @@ import { User } from "../models/user.model";
 
 export const ToDo = () => {
 
-    const [user, setUser] = useState<User>({
-        name: '',
-        totalTasks: 0,
-        tasksConcluded: 0,
-        createdAt: new Date()
-    });
+    useEffect(() => retrieveUser(), []);
 
     const [username, setUsername] = useState<string>('Your name');
 
@@ -20,28 +15,29 @@ export const ToDo = () => {
 
     const [createdAt, setCreatedAt] = useState<Date>(new Date());
 
-    const setUserData = (): void => {
-        setUser(new User(username, totalTasks, tasksConcluded, createdAt));
+    const userData = (): User => {
+        return new User(username, totalTasks, tasksConcluded, createdAt);
     }
+
+    const [user, setUser] = useState<User>(userData());
 
     const retrieveUser = (): void => {
         const storedUser: string | null = localStorage.getItem('user');
-        if(storedUser != null){
-            const user: User = JSON.parse(storedUser);
-            setUsername(user.name);
-            setTotalTasks(user.totalTasks);
-            setTasksConcluded(user.tasksConcluded);
-            setCreatedAt(new Date(user.createdAt));
-            setUserData();
-        }
+        storedUser != null ? initUser(JSON.parse(storedUser)) : setUser(userData());
+    }
+
+    const initUser = (user: User) => {
+        setUsername(user.name);
+        setTotalTasks(user.totalTasks);
+        setTasksConcluded(user.tasksConcluded);
+        setCreatedAt(new Date(user.createdAt));
+        setUser(userData());
     }
 
     const saveUser = (): void => {
-        setUserData();
+        setUser(userData());
         localStorage.setItem('user', JSON.stringify(user));
     }
-
-    useEffect(() => retrieveUser(), []);
     
     return (
         <div className="todo">

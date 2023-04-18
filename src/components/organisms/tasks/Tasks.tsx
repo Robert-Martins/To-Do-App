@@ -28,7 +28,7 @@ export const Tasks = (props: Props) => {
         localStorage.setItem(`task-${task.id}`, JSON.stringify(task));
     }
 
-    const createTask = (task: Task): void => {
+    const createTask = (task: Task, isInitRetrieve?: boolean): void => {
         task.id = task.id == 0 ? tasks.length + 1 : task.id;
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
         clone.push(task);
@@ -38,7 +38,8 @@ export const Tasks = (props: Props) => {
         setTotalTasks(totalTasks + 1);
         if(task.done)
             setTasksConcluded(tasksConcluded + 1);
-        saveUser();
+        if(!isInitRetrieve)
+            saveUser();
         storeTask(task);
     }
 
@@ -66,7 +67,7 @@ export const Tasks = (props: Props) => {
     const retrieveTask = (id: number): void => {
         let storageTask: string | null = localStorage.getItem(`task-${id}`);
         if(storageTask)
-            createTask(JSON.parse(storageTask));
+            createTask(JSON.parse(storageTask), true);
     }
 
     const taskStatusChanged = (task: Task) => {
