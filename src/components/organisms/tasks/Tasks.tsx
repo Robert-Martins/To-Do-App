@@ -29,23 +29,25 @@ export const Tasks = (props: Props) => {
     }
 
     const createTask = (task: Task): void => {
+        task.id = task.id == 0 ? tasks.length + 1 : task.id;
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
-        task.id = clone.length + 1;
         clone.push(task);
-        clone.sort((a, b) => a.id - b.id);
+        clone.sort((a, b) => b.id - a.id);
         setTasks(clone);
         setAddTask(false);
-        setTotalTasks(clone.length);
+        setTotalTasks(totalTasks + 1);
+        if(task.done)
+            setTasksConcluded(tasksConcluded + 1);
+        saveUser();
         storeTask(task);
     }
 
     const updateTask = (task: Task): void => {
         let clone: Task[] = JSON.parse(JSON.stringify(tasks));
-        let index: number = task.id - 1;
+        let index: number = clone.indexOf(task);
         taskStatusChanged(task);
         clone[index] = task;
         setTasks(clone);
-        setAddTask(false);
         storeTask(task);
     }
 
@@ -69,8 +71,14 @@ export const Tasks = (props: Props) => {
 
     const taskStatusChanged = (task: Task) => {
         const storedTask: Task = tasks.filter(filter => filter.id == task.id)[0];
-        if(storedTask.done !== task.done)
-            task.done === true ? setTasksConcluded(tasksConcluded + 1) : setTotalTasks(totalTasks + 1);
+        if(storedTask.done !== task.done && task.done === true){
+            setTasksConcluded(tasksConcluded + 1);
+            saveUser();
+        }
+        else if(storedTask.done !== task.done && task.done === false) {
+            setTasksConcluded(tasksConcluded - 1);
+            saveUser();
+        }
     }
 
     const retrieveTasks = (): void => {
@@ -88,10 +96,14 @@ export const Tasks = (props: Props) => {
     }, []);
 
     return (
-        <div className="flex flex-column f-center gap-36 p-top-20">
-            <FlatButton label={"ADICIONAR"} onClick={() => setAddTask(true)}></FlatButton>
+        <div className="flex flex-column f-center p-top-20 height-100">
+            <div className="height-14">
+                <FlatButton label={"ADICIONAR"} onClick={() => setAddTask(true)}></FlatButton>
+            </div>
+            <div className="width-100 height-86">
+                <TasksLists tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}></TasksLists>
+            </div>
             <TaskForm task={createNewTask()} isOpen={addTask} onClickSave={createTask}></TaskForm>
-            <TasksLists tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}></TasksLists>
         </div>
     );
 }

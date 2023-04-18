@@ -12,7 +12,7 @@ export const ToDo = () => {
         createdAt: new Date()
     });
 
-    const [username, setUsername] = useState<string>('');
+    const [username, setUsername] = useState<string>('Your name');
 
     const [totalTasks, setTotalTasks] = useState<number>(0);
 
@@ -25,27 +25,45 @@ export const ToDo = () => {
     }
 
     const retrieveUser = (): void => {
-        if(localStorage.getItem('name') != null || localStorage.getItem('name') !== ''){
-            setUsername(`${localStorage.getItem('name') ? localStorage.getItem('name') : 'Your name'}`);
-            setTotalTasks(Number(localStorage.getItem('totalTasks')));
-            setTasksConcluded(Number(localStorage.getItem('tasksConcluded')));
-            setCreatedAt(new Date(`${localStorage.getItem('createdAt') ? localStorage.getItem('createdAt') : new Date()}`));
+        const storedUser: string | null = localStorage.getItem('user');
+        if(storedUser != null){
+            const user: User = JSON.parse(storedUser);
+            setUsername(user.name);
+            setTotalTasks(user.totalTasks);
+            setTasksConcluded(user.tasksConcluded);
+            setCreatedAt(new Date(user.createdAt));
             setUserData();
         }
     }
 
     const saveUser = (): void => {
         setUserData();
-        for(const [key, value] of Object.entries(user))
-            localStorage.setItem(key, value);
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     useEffect(() => retrieveUser(), []);
     
     return (
         <div className="todo">
-            <UserData username={username} setUsername={setUsername} totalTasks={totalTasks} tasksConcluded={tasksConcluded} createdAt={createdAt} saveUser={saveUser}></UserData>
-            <Tasks totalTasks={totalTasks} setTotalTasks={setTotalTasks} tasksConcluded={tasksConcluded} setTasksConcluded={setTasksConcluded} saveUser={saveUser}></Tasks>
+            <div className="height-14">
+                <UserData 
+                    username={username} 
+                    setUsername={setUsername} 
+                    totalTasks={totalTasks} 
+                    tasksConcluded={tasksConcluded} 
+                    createdAt={createdAt} 
+                    saveUser={saveUser}
+                ></UserData>
+            </div>
+            <div className="height-86 overflow-hidden">
+                <Tasks 
+                    totalTasks={totalTasks} 
+                    setTotalTasks={setTotalTasks} 
+                    tasksConcluded={tasksConcluded} 
+                    setTasksConcluded={setTasksConcluded} 
+                    saveUser={saveUser}
+                ></Tasks>
+            </div>
         </div>
     );
 }
